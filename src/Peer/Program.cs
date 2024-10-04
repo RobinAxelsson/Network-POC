@@ -24,7 +24,7 @@ namespace Peer
             {
                 var message = Console.ReadLine();
                 var request = new HttpRequestMessage(HttpMethod.Get, $"http://localhost:{targetPort}");
-                request.Headers.Connection.Add("keep-alive");
+
                 request.Content = new StringContent($"{name}: {message}");
                 var response = await client.SendAsync(request);
                 var content = await response.Content.ReadAsStringAsync();
@@ -37,7 +37,7 @@ namespace Peer
             var listener = new HttpListener();
             listener.TimeoutManager.DrainEntityBody = TimeSpan.FromSeconds(30);
             listener.Prefixes.Add($"http://localhost:{myPort}/");
-            Console.WriteLine($"Receiving on {myPort}");
+            Console.WriteLine($"Listening on localhost:{myPort}");
             listener.Start();
             
             while (true)
@@ -50,16 +50,6 @@ namespace Peer
                     string requestBody = await reader.ReadToEndAsync();
                     Console.WriteLine(requestBody);
                 }
-
-                //var response = context.Response;
-                //response.StatusCode = 201;
-
-                //string responseMessage = "Request received successfully";
-                //byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseMessage);
-
-                //response.ContentLength64 = buffer.Length;
-                //await response.OutputStream.WriteAsync(buffer, 0, buffer.Length);
-                //response.OutputStream.Close();
 
                 Thread.Sleep(100);
             }
