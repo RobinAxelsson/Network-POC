@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkSpy", "src\NetworkSp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Peer", "src\Peer\Peer.csproj", "{078FCE9A-3C67-4B28-B4B5-A50F08471458}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeerTCP", "src\PeerTCP\PeerTCP.csproj", "{6BA3E314-543A-4B61-8E6D-B2BBC90815D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{078FCE9A-3C67-4B28-B4B5-A50F08471458}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{078FCE9A-3C67-4B28-B4B5-A50F08471458}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{078FCE9A-3C67-4B28-B4B5-A50F08471458}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BA3E314-543A-4B61-8E6D-B2BBC90815D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BA3E314-543A-4B61-8E6D-B2BBC90815D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BA3E314-543A-4B61-8E6D-B2BBC90815D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BA3E314-543A-4B61-8E6D-B2BBC90815D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -30,6 +36,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{C327A25E-C1BD-4734-BC95-D2A93E5F3A9D} = {A876E4EE-1A40-4255-B45B-575DD2204744}
 		{078FCE9A-3C67-4B28-B4B5-A50F08471458} = {A876E4EE-1A40-4255-B45B-575DD2204744}
+		{6BA3E314-543A-4B61-8E6D-B2BBC90815D4} = {A876E4EE-1A40-4255-B45B-575DD2204744}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {497963CB-8E2C-4C1E-BE0C-A72EB135CB20}
