@@ -1,5 +1,6 @@
 ﻿using System.Net.Sockets;
 using System.Net;
+using System.Text;
 
 namespace Peer
 { 
@@ -14,43 +15,44 @@ namespace Peer
             var receiving = StartReceiving(myPort);
             var sending = StartSending(myName, targetPort);
 
-            await Task.WhenAll([receiving, sending]);
+            await Task.WhenAll(receiving, sending);
         }
 
         public async static Task StartSending(string name, string targetPort)
         {
-
             var client = new TcpClient();
+            var localhost = IPAddress.Parse("::1");
+            await client.ConnectAsync(localhost, int.Parse(targetPort));
 
-            while (true)
+            using (var networkStream = client.GetStream())
             {
-                var message = Console.ReadLine();
-                var buffer = Encoding.UTF8.GetBytes($"{name}: message");
-                
-                Console.WriteLine(content);
+                while (true)
+                {
+                    var message = Console.ReadLine();
+                    var buffer = Encoding.UTF8.GetBytes($"{name}: {message}");
+                    await networkStream.WriteAsync(buffer, 0, buffer.Length);
+                }
             }
         }
 
         public async static Task StartReceiving(string myPort)
         {
-            var listener = new HttpListener();
-            listener.TimeoutManager.DrainEntityBody = TimeSpan.FromSeconds(30);
-            listener.Prefixes.Add($"http://localhost:{myPort}/");
-            Console.WriteLine($"Listening on localhost:{myPort}");
+            var listener = new TcpListener(IPAddress.Parse("::1"), int.Parse(myPort));
             listener.Start();
-            
+            Console.WriteLine($"Listening on localhost:{myPort}");
+
             while (true)
             {
-                var context = await listener.GetContextAsync();
-                var request = context.Request;
-
-                using (StreamReader reader = new StreamReader(request.InputStream, request.ContentEncoding))
+                var client = await listener.AcceptTcpClientAsync();
+                using (var networkStream = client.GetStream())
+                using (StreamReader reader = new StreamReader(networkStream, Encoding.UTF8))
                 {
-                    string requestBody = await reader.ReadToEndAsync();
-                    Console.WriteLine(requestBody);
-                }
+                    string message = await reader.ReadToEndAsync();
+                    Console.WriteLine(message);
 
-                Thread.Sleep(100);
+                }
+                
+                await Task.Delay(100);
             }
         }
     }

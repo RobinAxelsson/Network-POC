@@ -13,7 +13,7 @@ namespace Peer
             var receiving = StartReceiving(myPort);
             var sending = StartSending(myName, targetPort);
 
-            await Task.WhenAll([receiving, sending]);
+            await Task.WhenAll(receiving, sending);
         }
 
         public async static Task StartSending(string name, string targetPort)
